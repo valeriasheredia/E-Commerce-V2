@@ -58,6 +58,9 @@ namespace E_Commerce_V2
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //Seed database
+            AppDbInitializer.Seed(app);
         }
     }
 }
