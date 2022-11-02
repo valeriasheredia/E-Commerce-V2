@@ -16,7 +16,7 @@ namespace E_Commerce_V2.Controllers
         // GET: SubCaracteristicasController
         public async Task<ActionResult> Index()
         {
-            var data = await _context.SubCaracteristicas.ToListAsync();
+            var data = await _context.SubCaracteristicas.Include(n=>n.Caracteristica).ToListAsync();
             return View(data);
         }
 

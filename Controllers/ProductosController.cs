@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace E_Commerce_V2.Controllers
@@ -16,7 +17,7 @@ namespace E_Commerce_V2.Controllers
         // GET: ProductosController
         public async Task<ActionResult> Index()
         {
-            var data = await _context.Productos.ToListAsync();
+            var data = await _context.Productos.Include(n=>n.Caracteristica).Include(m=>m.Linea).OrderBy(n => n.Nombre).ToListAsync();
             return View(data);
         }
 

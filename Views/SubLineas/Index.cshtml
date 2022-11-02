@@ -10,7 +10,7 @@
             <thead>
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.Imagen)</th>
-                    <th>@Html.DisplayNameFor(model => model.LineaId)</th>
+                    <th>@Html.DisplayNameFor(model => model.Linea.Nombre)</th>
                     <th>@Html.DisplayNameFor(model => model.Nombre)</th>
                     <th>@Html.DisplayNameFor(model => model.Descripcion)</th>            
                     <th>Acciones</th>
@@ -24,7 +24,7 @@
                            <img class="rounded-circle" src="@item.Imagen" alt="@item.Nombre" style="max-width:150px"/>
                        </td>
                         <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.LineaId)
+                            @Html.DisplayFor(modelItem => item.Linea.Nombre)
                         </td>
                         <td class="align-middle">
                             @Html.DisplayFor(modelItem => item.Nombre)

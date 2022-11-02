@@ -14,7 +14,7 @@ namespace E_Commerce_V2.Models
         public string Codigo { get; set; }
 
         [Required]
-        [Display(Name = "Nombre")]
+        [Display(Name = "Producto")]
         public string Nombre { get; set; }
         public string Descripcion1 { get; set; }
         public string Contenido { get; set; }

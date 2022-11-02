@@ -10,7 +10,7 @@ namespace E_Commerce_V2.Models
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Nombre")]
+        [Display(Name = "Sub-Característica")]
         public string Nombre { get; set; }
 
         [Required]

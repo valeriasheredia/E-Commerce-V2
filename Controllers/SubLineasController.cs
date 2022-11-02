@@ -16,7 +16,7 @@ namespace E_Commerce_V2.Controllers
         // GET: SubLineasController
         public async Task<ActionResult> Index()
         {
-            var data = await _context.SubLineas.ToListAsync();
+            var data = await _context.SubLineas.Include(n=>n.Linea).ToListAsync();
             return View(data);
         }
 
