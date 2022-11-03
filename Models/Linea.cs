@@ -8,7 +8,7 @@ namespace E_Commerce_V2.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="El nombre de la línea es requerido")]
         [Display(Name ="Línea")]       
         public string Nombre { get; set; }
 

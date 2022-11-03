@@ -1,4 +1,6 @@
 ﻿using E_Commerce_V2.Data;
+using E_Commerce_V2.Data.Services;
+using E_Commerce_V2.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,23 +10,26 @@ namespace E_Commerce_V2.Controllers
 {
     public class LineasController : Controller
     {
-        private readonly AppDbContext _context;
-        public LineasController(AppDbContext context)
+        private readonly ILineasService _service;
+        public LineasController(ILineasService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // GET: LineasController
-        public async Task<ActionResult> Index()
+        public async Task< ActionResult> Index()
         {
-            var data = await _context.Lineas.ToListAsync();
+            var data =await _service.GetAllAsync();
             return View(data);
         }
 
         // GET: LineasController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            var lineaDetalle=await _service.GetByIdAsync(id);
+
+            if(lineaDetalle==null) return View("NotFound");
+            return View(lineaDetalle);
         }
 
         // GET: LineasController/Create
@@ -35,59 +40,56 @@ namespace E_Commerce_V2.Controllers
 
         // POST: LineasController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+       public async Task<IActionResult> Create([Bind("Nombre, Descripcion, Imagen")]Linea linea)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                return View(linea);
             }
-            catch
-            {
-                return View();
-            }
+           await _service.AddAsync(linea);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: LineasController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var lineaEditar=await _service.GetByIdAsync(id);
+            if(lineaEditar==null) return View("NotFound");
+            return View(lineaEditar);
         }
 
         // POST: LineasController/Edit/5
+      
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id,[Bind("Id, Nombre, Descripcion, Imagen")] Linea linea)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                return View(linea);
             }
-            catch
-            {
-                return View();
-            }
+            await _service.UpdateAsync(id, linea);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: LineasController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            var lineaEliminar = await _service.GetByIdAsync(id);
+            if (lineaEliminar == null) return View("NotFound");
+            return View(lineaEliminar);
         }
 
         // POST: LineasController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var lineaEliminar = await _service.GetByIdAsync(id);
+            if (lineaEliminar == null) return View("NotFound");
+
+            await _service.DeleteAsync(id);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
+ 

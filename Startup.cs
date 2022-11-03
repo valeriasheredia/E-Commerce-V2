@@ -1,4 +1,5 @@
 using E_Commerce_V2.Data;
+using E_Commerce_V2.Data.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,11 @@ namespace E_Commerce_V2
 
             //DbContext configuration
             services.AddDbContext<AppDbContext>(options=>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
+
+            //Services configuration
+            services.AddScoped<ILineasService, LineasService>();
+           
+
 
             services.AddControllersWithViews();
         }
