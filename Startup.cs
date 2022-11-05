@@ -31,8 +31,8 @@ namespace E_Commerce_V2
             services.AddDbContext<AppDbContext>(options=>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
 
             //Services configuration
-            services.AddScoped<ILineasService, LineasService>();
-           
+           services.AddScoped<ILineasService, LineasService>();
+           services.AddScoped<ICaracteristicasSservice, CaracteristicasService>();
 
 
             services.AddControllersWithViews();
