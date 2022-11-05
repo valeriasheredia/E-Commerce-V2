@@ -1,4 +1,5 @@
 ﻿using E_Commerce_V2.Data;
+using E_Commerce_V2.Data.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,15 +10,15 @@ namespace E_Commerce_V2.Controllers
 {
     public class ProductosController : Controller
     {
-        private readonly AppDbContext _context;
-        public ProductosController(AppDbContext context)
+        private readonly IProductosService _service;
+        public ProductosController(IProductosService service)
         {
-            _context = context;
+            _service = service;
         }
         // GET: ProductosController
         public async Task<ActionResult> Index()
         {
-            var data = await _context.Productos.Include(n=>n.Caracteristica).Include(m=>m.Linea).OrderBy(n => n.Nombre).ToListAsync();
+            var data = await _service.GetAllAsync(n => n.Linea, m => m.Caracteristica);
             return View(data);
         }
 

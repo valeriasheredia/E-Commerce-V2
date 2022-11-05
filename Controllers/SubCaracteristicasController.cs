@@ -19,7 +19,7 @@ namespace E_Commerce_V2.Controllers
         // GET: SubCaracteristicasController
         public async Task<ActionResult> Index()
         {
-            var data = await _service.GetAllAsync();
+            var data = await _service.GetAllAsync(n =>n.Caracteristica);
             return View(data);
         }
 

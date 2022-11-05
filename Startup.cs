@@ -35,7 +35,7 @@ namespace E_Commerce_V2
            services.AddScoped<ICaracteristicasService, CaracteristicasService>();
             services.AddScoped<ISubCaracteristicasService, SubCaracteristicasService>();
             services.AddScoped<ISubLineasService, SubLineasService>();
-
+            services.AddScoped<IProductosService, ProductosServices>();
 
             services.AddControllersWithViews();
         }
