@@ -1,4 +1,6 @@
 ﻿using E_Commerce_V2.Data;
+using E_Commerce_V2.Data.Services;
+using E_Commerce_V2.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,22 +10,26 @@ namespace E_Commerce_V2.Controllers
 {
     public class SubCaracteristicasController : Controller
     {
-        private readonly AppDbContext _context;
-        public SubCaracteristicasController(AppDbContext context)
+        private readonly ISubCaracteristicasService _service;
+        public SubCaracteristicasController(ISubCaracteristicasService service)
         {
-            _context = context;
+            _service = service; 
         }
+
         // GET: SubCaracteristicasController
         public async Task<ActionResult> Index()
         {
-            var data = await _context.SubCaracteristicas.Include(n=>n.Caracteristica).ToListAsync();
+            var data = await _service.GetAllAsync();
             return View(data);
         }
 
-        // GET: SubCaracteristicasController/Details/5
-        public ActionResult Details(int id)
+        // GET: CaracteristicasController/Details/5
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            var subCaracteristicaDetalle = await _service.GetByIdAsync(id);
+
+            if (subCaracteristicaDetalle == null) return View("NotFound");
+            return View(subCaracteristicaDetalle);
         }
 
         // GET: SubCaracteristicasController/Create
@@ -34,59 +40,55 @@ namespace E_Commerce_V2.Controllers
 
         // POST: SubCaracteristicasController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create([Bind("CaracteristicaId, Nombre, Descripcion, Imagen")] SubCaracteristica subCaracteristica)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                return View(subCaracteristica);
             }
-            catch
-            {
-                return View();
-            }
+            await _service.AddAsync(subCaracteristica);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: SubCaracteristicasController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var subCaracteristicaEditar = await _service.GetByIdAsync(id);
+            if (subCaracteristicaEditar == null) return View("NotFound");
+            return View(subCaracteristicaEditar);
         }
 
         // POST: SubCaracteristicasController/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, [Bind("Id, CaracteristicaId, Nombre, Descripcion, Imagen")] SubCaracteristica subCaracteristica)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                return View(subCaracteristica);
             }
-            catch
-            {
-                return View();
-            }
+            await _service.UpdateAsync(id, subCaracteristica);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: SubCaracteristicasController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            var subCaracteristicaEliminar = await _service.GetByIdAsync(id);
+            if (subCaracteristicaEliminar == null) return View("NotFound");
+            return View(subCaracteristicaEliminar);
         }
 
         // POST: SubCaracteristicasController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var subCaracteristicaEliminar = await _service.GetByIdAsync(id);
+            if (subCaracteristicaEliminar == null) return View("NotFound");
+
+            await _service.DeleteAsync(id);
+
+            return RedirectToAction(nameof(Index));
         }
     }
+    
 }

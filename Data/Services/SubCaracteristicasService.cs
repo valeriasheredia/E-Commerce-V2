@@ -1,11 +1,12 @@
-﻿namespace E_Commerce_V2.Data.Services
+﻿using E_Commerce_V2.Data.Base;
+using E_Commerce_V2.Models;
+
+namespace E_Commerce_V2.Data.Services
 {
-    public class SubCaracteristicasService : ICaracteristicasService
+    public class SubCaracteristicasService : EntityBaseRepository<SubCaracteristica>, ISubCaracteristicasService
     {
-        private readonly AppDbContext _context;
-        public SubCaracteristicasService(AppDbContext context)
+        public SubCaracteristicasService(AppDbContext context) : base(context)
         {
-            _context = context;
         }
     }
 }

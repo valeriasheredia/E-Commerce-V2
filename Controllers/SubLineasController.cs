@@ -1,4 +1,6 @@
 ﻿using E_Commerce_V2.Data;
+using E_Commerce_V2.Data.Services;
+using E_Commerce_V2.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,22 +10,26 @@ namespace E_Commerce_V2.Controllers
 {
     public class SubLineasController : Controller
     {
-        private readonly AppDbContext _context;
-        public SubLineasController(AppDbContext context)
+        private readonly ISubLineasService _service;
+        public SubLineasController(ISubLineasService service)
         {
-            _context = context;
+            _service = service;
         }
+
         // GET: SubLineasController
         public async Task<ActionResult> Index()
         {
-            var data = await _context.SubLineas.Include(n=>n.Linea).ToListAsync();
+            var data = await _service.GetAllAsync();
             return View(data);
         }
 
         // GET: SubLineasController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            var subLineaDetalle = await _service.GetByIdAsync(id);
+
+            if (subLineaDetalle == null) return View("NotFound");
+            return View(subLineaDetalle);
         }
 
         // GET: SubLineasController/Create
@@ -34,59 +40,54 @@ namespace E_Commerce_V2.Controllers
 
         // POST: SubLineasController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create([Bind("Nombre, Descripcion, Imagen")] SubLinea subLinea)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                return View(subLinea);
             }
-            catch
-            {
-                return View();
-            }
+            await _service.AddAsync(subLinea);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: SubLineasController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var subLineaEditar = await _service.GetByIdAsync(id);
+            if (subLineaEditar == null) return View("NotFound");
+            return View(subLineaEditar);
         }
 
         // POST: SubLineasController/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, [Bind("Id, LineaId, Nombre, Descripcion, Imagen")] SubLinea subLinea)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                return View(subLinea);
             }
-            catch
-            {
-                return View();
-            }
+            await _service.UpdateAsync(id, subLinea);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: SubLineasController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            var subLineaEliminar = await _service.GetByIdAsync(id);
+            if (subLineaEliminar == null) return View("NotFound");
+            return View(subLineaEliminar);
         }
 
         // POST: SubLineasController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var subLineaEliminar = await _service.GetByIdAsync(id);
+            if (subLineaEliminar == null) return View("NotFound");
+
+            await _service.DeleteAsync(id);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_V2.Data.Services
 {
-    public class LineasService :EntityBaseRepository<Linea>,  ILineasService
+    public class LineasService :EntityBaseRepository<Linea>, ILineasService
     {
         public LineasService(AppDbContext context): base(context) {}
 

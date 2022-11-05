@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Commerce-V2", "E-Commerce-V2.csproj", "{E02AF4FF-3029-47C3-B973-32E58BCB54B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E-Commerce-V2", "E-Commerce-V2.csproj", "{E02AF4FF-3029-47C3-B973-32E58BCB54B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{73A8D998-E4D7-4D3E-8C0A-9DD84EDCD27F}"
+	ProjectSection(SolutionItems) = preProject
+		Data\Services\SubCaracteristicasService.cs = Data\Services\SubCaracteristicasService.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

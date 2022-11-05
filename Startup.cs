@@ -32,7 +32,9 @@ namespace E_Commerce_V2
 
             //Services configuration
            services.AddScoped<ILineasService, LineasService>();
-           services.AddScoped<ICaracteristicasSservice, CaracteristicasService>();
+           services.AddScoped<ICaracteristicasService, CaracteristicasService>();
+            services.AddScoped<ISubCaracteristicasService, SubCaracteristicasService>();
+            services.AddScoped<ISubLineasService, SubLineasService>();
 
 
             services.AddControllersWithViews();

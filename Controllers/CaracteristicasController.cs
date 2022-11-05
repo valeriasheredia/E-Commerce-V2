@@ -11,8 +11,8 @@ namespace E_Commerce_V2.Controllers
 {
     public class CaracteristicasController : Controller
     {
-        private readonly ICaracteristicasSservice _service;
-        public CaracteristicasController(ICaracteristicasSservice service)
+        private readonly ICaracteristicasService _service;
+        public CaracteristicasController(ICaracteristicasService service)
         {
             _service = service;
         }

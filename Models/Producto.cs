@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using E_Commerce_V2.Data.Enums;
+using E_Commerce_V2.Data.Base;
 
 namespace E_Commerce_V2.Models
 {
-    public class Producto
+    public class Producto : IEntityBase
     {
         [Key]
         public int Id { get; set; }
