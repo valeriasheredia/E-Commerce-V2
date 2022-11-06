@@ -1,0 +1,83 @@
+﻿@model Producto
+
+@{
+    ViewData["Title"] = "Detalle del Producto";
+}
+
+<div class="row">
+        <div class="col-md-8 offset-2">
+            <div class="card mb-12">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-info">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @Model.Nombre
+                                    @* @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                {
+                                <a class="text-white float-right" asp-action="Edit" asp-route-id="@Model.Id"><i class="bi bi-pencil-square"></i></a>
+                                }*@
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="@Model.Imagen1" width="100%" alt="@Model.Nombre">
+                        <img src="@Model.Imagen2" width="30%" alt="@Model.Nombre">
+                        <img src="@Model.Imagen3" width="30%" alt="@Model.Nombre">
+                    </div>
+
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text"><b>Código: </b>@Model.Codigo</p>
+                            @* <p class="card-text"><b>Descripción: </b>@Model.Descripcion1</p>*@
+                            <p class="card-text"><b>Contenido: </b>@Model.Contenido</p>@*
+                        <p class="card-text"><b>Precio: </b>@Model.Precio</p>*@
+                            <p class="card-text"><b>Descuento: </b>@Model.Descuento</p>
+                            <p class="card-text"><b>Valoracion: </b>@Model.Valoracion</p>
+                            <p class="card-text"><b>Categoria: </b>@Model.CategoriaProducto</p>
+                            <p class="card-text"><b>Linea: </b>
+                                <a asp-controller="Lineas" asp-action="Details" asp-route-id="@Model.LineaId">
+                                    @Model.Linea.Nombre
+                                </a>
+                            </p>
+                        <p class="card-text">
+                            <b>Característica: </b>
+                            <a asp-controller="Caracteristicas" asp-action="Details" asp-route-id="@Model.CaracteristicaId">
+                                @Model.Caracteristica.Nombre
+                            </a>
+                        </p>
+
+                            <p class="card-text ">
+                                @if (Model.Stock > 1)
+                                {
+                                    <span class="badge bg-success text-white">DISPONIBLE</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-primary text-white">SIN STOCK</span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer ">
+                            <p class="card-text">
+                                <a class="btn btn-outline-primary float-right" asp-action="Index">
+                                    Regresar al Listado
+                                </a>
+                                <a class="btn btn-success text-white"><i class="bi bi-cart-plus"></i> Agregar al carrito (Precio @Model.Precio.ToString("c"))</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+</div>
+
+<div style="position:fixed; right:25px; bottom:25px;" class="text-white">
+    <a asp-controller="Productos" asp-action="Create" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i>Agregar Nuevo
+    </a>
+</div>

@@ -5,21 +5,22 @@ using E_Commerce_V2.Data.Base;
 
 namespace E_Commerce_V2.Models
 {
-    public class Producto : IEntityBase
+    public class NewProductoVM
     {
-        [Key]
-        public int Id { get; set; }
 
-        [Required(ErrorMessage = "El código del producto es requerido")]
+        [Required (ErrorMessage = "El código del producto es requerido")]
         [Display(Name = "Código")]
         public string Codigo { get; set; }
 
         [Required(ErrorMessage = "El nombre del producto es requerido")]
         [Display(Name = "Producto")]
         public string Nombre { get; set; }
+
+        [Display(Name = "Descripción")]
         public string Descripcion1 { get; set; }
 
         [Required(ErrorMessage = "El contenido del producto es requerido")]
+        [Display(Name = "Contenido")]
         public string Contenido { get; set; }
 
         [Required(ErrorMessage = "La imagen del producto es requerida")]
@@ -39,20 +40,15 @@ namespace E_Commerce_V2.Models
         public string Valoracion { get; set; }
 
         [Required(ErrorMessage = "La categoría del producto es requerida")]
-        [Display(Name = "Categoría del Producto")]
+        [Display(Name = "Selecciona una Categoría")]
         public CategoriaProducto CategoriaProducto { get; set; }
 
-        //Caracteristica
-        public int CaracteristicaId { get; set; }
-        [ForeignKey("CaracteristicaId")]
         [Required(ErrorMessage = "La característica del producto es requerida")]
-        public Caracteristica Caracteristica { get; set; }
-
-        //Linea
+        [Display(Name = "Selecciona una Característica")]
+        public int CaracteristicaId { get; set; }
 
         [Required(ErrorMessage = "La línea del producto es requerida")]
+        [Display(Name = "Selecciona una Línea")]
         public int LineaId { get; set; }
-        [ForeignKey("LineaId")]
-        public Linea Linea { get; set; }
     }
 }

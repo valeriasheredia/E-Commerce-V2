@@ -2,6 +2,7 @@
 using E_Commerce_V2.Data.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,14 +24,19 @@ namespace E_Commerce_V2.Controllers
         }
 
         // GET: ProductosController/Details/5
-        public ActionResult Details(int id)
+        public async Task< ActionResult> Details(int id)
         {
-            return View();
+            var productoDetalle = await _service.GetProductoByIdAsync(id);
+
+            return View(productoDetalle);
         }
 
         // GET: ProductosController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
+            var productoDropdownsData = await _service.GetNewProductoDropdownsValues();
+            ViewBag.Caracteristicas = new SelectList(productoDropdownsData.Caracteristicas, "Id", "Nombre");
+            ViewBag.Lineas = new SelectList(productoDropdownsData.Lineas, "Id", "Nombre");
             return View();
         }
 
