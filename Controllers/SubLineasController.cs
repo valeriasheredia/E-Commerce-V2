@@ -3,6 +3,7 @@ using E_Commerce_V2.Data.Services;
 using E_Commerce_V2.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
@@ -33,10 +34,13 @@ namespace E_Commerce_V2.Controllers
         }
 
         // GET: SubLineasController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
+            var LineaDropdownsData = await _service.GetNewLineaDropdownsValues();
+            ViewBag.Linea = new SelectList(LineaDropdownsData.Lineas, "Id", "Nombre");
             return View();
         }
+
 
         // POST: SubLineasController/Create
         [HttpPost]

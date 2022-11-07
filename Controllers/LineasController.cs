@@ -3,6 +3,7 @@ using E_Commerce_V2.Data.Services;
 using E_Commerce_V2.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
@@ -33,6 +34,7 @@ namespace E_Commerce_V2.Controllers
         }
 
         // GET: LineasController/Create
+      
         public ActionResult Create()
         {
             return View();

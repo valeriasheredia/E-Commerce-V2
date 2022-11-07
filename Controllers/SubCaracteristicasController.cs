@@ -3,6 +3,7 @@ using E_Commerce_V2.Data.Services;
 using E_Commerce_V2.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
@@ -33,8 +34,11 @@ namespace E_Commerce_V2.Controllers
         }
 
         // GET: SubCaracteristicasController/Create
-        public ActionResult Create()
+      
+        public async Task<ActionResult> Create()
         {
+            var CaracteristicaDropdownsData = await _service.GetNewCaracteristicaDropdownsValues();
+            ViewBag.Caracteristicas = new SelectList(CaracteristicaDropdownsData.Caracteristicas, "Id", "Nombre");
             return View();
         }
 

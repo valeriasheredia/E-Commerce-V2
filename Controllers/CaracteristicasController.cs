@@ -1,8 +1,10 @@
 ﻿using E_Commerce_V2.Data;
 using E_Commerce_V2.Data.Services;
+using E_Commerce_V2.Data.ViewModels;
 using E_Commerce_V2.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,6 +40,7 @@ namespace E_Commerce_V2.Controllers
         {
             return View();
         }
+
 
         // POST: CaracteristicasController/Create
         [HttpPost]

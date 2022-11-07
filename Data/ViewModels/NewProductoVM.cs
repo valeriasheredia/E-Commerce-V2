@@ -24,7 +24,7 @@ namespace E_Commerce_V2.Models
         public string Contenido { get; set; }
 
         [Required(ErrorMessage = "La imagen del producto es requerida")]
-        [Display(Name = "Imagen")]
+        [Display(Name = "Imagen1")]
         public string Imagen1 { get; set; }
         public string Imagen2 { get; set; }
         public string Imagen3 { get; set; }

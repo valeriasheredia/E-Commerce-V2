@@ -106,17 +106,17 @@
                         </div>
                 </div>
 
-                <div class="col-md-4 offset-4 text-center">
+                    <div class="col-md-4 offset-4 text-center">
                         <img width="100%" id="Imagen1Preview" />
-                </div>
+                    </div>
 
-                 <div class="col-md-4 offset-4 text-center">
+               @*  <div class="col-md-4 offset-4 text-center">
                         <img width="100%" id="Imagen2Preview" />
                 </div>
 
                     <div class="col-md-4 offset-4 text-center">
                         <img width="100%" id="Imagen3Preview" />
-                    </div>
+                    </div>*@
 
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-outline-success float-right"/>
@@ -134,14 +134,14 @@
             var output = document.getElementById("Imagen1Preview");
             output.src = $(this).val();
         })
-        $("#Imagen2").on("change" function () {
-            var output = document.getElementById("Imagen2Preview");
-            output.src = $(this).val();
-        })
-         $("#Imagen3").on("change" function(){
-            var output = document.getElementById("Imagen3Preview");
-            output.src = $(this).val();
-        })
+        //$("#Imagen2").on("change" function () {
+        //    var output = document.getElementById("Imagen2Preview");
+        //    output.src = $(this).val();
+        //})
+        // $("#Imagen3").on("change" function(){
+        //    var output = document.getElementById("Imagen3Preview");
+        //    output.src = $(this).val();
+        //})
 
     </script>
 }
