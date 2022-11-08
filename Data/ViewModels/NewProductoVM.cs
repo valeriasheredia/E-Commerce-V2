@@ -7,6 +7,7 @@ namespace E_Commerce_V2.Models
 {
     public class NewProductoVM
     {
+        public int Id { get; set; }
 
         [Required (ErrorMessage = "El código del producto es requerido")]
         [Display(Name = "Código")]
@@ -26,17 +27,21 @@ namespace E_Commerce_V2.Models
         [Required(ErrorMessage = "La imagen del producto es requerida")]
         [Display(Name = "Imagen1")]
         public string Imagen1 { get; set; }
+
         public string Imagen2 { get; set; }
+
         public string Imagen3 { get; set; }
 
         [Required(ErrorMessage = "El precio del producto es requerido")]
         [Display(Name = "Precio")]
         public decimal Precio { get; set; }
+
         public decimal Descuento { get; set; }
 
         [Required(ErrorMessage = "El stock del producto es requerido")]
         [Display(Name = "Stock")]
         public int Stock { get; set; }
+
         public string Valoracion { get; set; }
 
         [Required(ErrorMessage = "La categoría del producto es requerida")]

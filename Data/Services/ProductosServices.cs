@@ -57,5 +57,30 @@ namespace E_Commerce_V2.Data.Services
 
             return productoDetalle;
         }
+
+        public async Task UpdateProductoAsync(NewProductoVM data)
+        {
+            var dbProducto= await _context.Productos.FirstOrDefaultAsync(n =>n.Id == data.Id);
+
+            if(dbProducto != null)
+            {
+                dbProducto.Codigo = data.Codigo;
+                    dbProducto.Nombre = data.Nombre;
+                dbProducto.Descripcion1 = data.Descripcion1;
+                dbProducto.Contenido = data.Contenido;
+                dbProducto.Imagen1 = data.Imagen1;
+                dbProducto.Imagen2 = data.Imagen2;
+                dbProducto.Imagen3 = data.Imagen3;
+                dbProducto.Precio = data.Precio;
+                dbProducto.Descuento = data.Descuento;
+                dbProducto.Stock = data.Stock;
+                dbProducto.Valoracion = data.Valoracion;
+                dbProducto.CategoriaProducto = data.CategoriaProducto;
+                dbProducto.CaracteristicaId = data.CaracteristicaId;
+                dbProducto.LineaId = data.LineaId;
+
+                await _context.SaveChangesAsync();
+            }          
+        }
     }
 }

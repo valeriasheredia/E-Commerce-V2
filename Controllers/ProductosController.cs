@@ -58,46 +58,59 @@ namespace E_Commerce_V2.Controllers
         return RedirectToAction(nameof(Index));
         }
 
-        // GET: ProductosController/Edit/5
-        public ActionResult Edit(int id)
+
+
+
+
+
+
+        // GET: ProductosController/Edit/1
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var productoDetalle = await _service.GetProductoByIdAsync(id);
+            if(productoDetalle == null) return View("NotFound");
+
+            var response = new NewProductoVM()
+            {
+                Id = productoDetalle.Id,  
+                Codigo = productoDetalle.Codigo,
+                Nombre = productoDetalle.Nombre,
+                Descripcion1 = productoDetalle.Descripcion1,
+                Contenido = productoDetalle.Contenido,
+                Imagen1 = productoDetalle.Imagen1,
+                Imagen2 = productoDetalle.Imagen2,
+                Imagen3 = productoDetalle.Imagen3,
+                Precio = productoDetalle.Precio,
+                Descuento = productoDetalle.Descuento,
+                Stock = productoDetalle.Stock,
+                Valoracion = productoDetalle.Valoracion,
+                CategoriaProducto = productoDetalle.CategoriaProducto,
+                CaracteristicaId = productoDetalle.CaracteristicaId,
+                LineaId = productoDetalle.LineaId
+            };
+
+            var productoDropdownsData = await _service.GetNewProductoDropdownsValues();
+            ViewBag.Caracteristicas = new SelectList(productoDropdownsData.Caracteristicas, "Id", "Nombre");
+            ViewBag.Lineas = new SelectList(productoDropdownsData.Lineas, "Id", "Nombre");
+            return View(response);
         }
 
-        // POST: ProductosController/Edit/5
+        // POST: ProductosController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, NewProductoVM producto)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            if (id != producto.Id) return View("NotFound");
 
-        // GET: ProductosController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+            if (!ModelState.IsValid)
+            {
+                var productoDropdownsData = await _service.GetNewProductoDropdownsValues();
 
-        // POST: ProductosController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
+                ViewBag.Caracteristicas = new SelectList(productoDropdownsData.Caracteristicas, "Id", "Nombre");
+                ViewBag.Lineas = new SelectList(productoDropdownsData.Lineas, "Id", "Nombre");
+                return View(producto);
             }
-            catch
-            {
-                return View();
-            }
+            await _service.UpdateProductoAsync(producto);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

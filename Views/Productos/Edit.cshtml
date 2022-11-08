@@ -1,0 +1,156 @@
+﻿@using E_Commerce_V2.Data.Enums
+@model NewProductoVM
+
+@{
+    ViewData["Title"] = "Editar un Producto";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h4>Editar un Producto</h4>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Nombre" class="control-label"></label>
+                            <input asp-for="Nombre" class="form-control"/>
+                            <span asp-validation-for="Nombre" class="text-danger"></span>
+                        </div>
+
+                            <div class="form-group">
+                                <label asp-for="Codigo" class="control-label"></label>
+                                <input asp-for="Codigo" class="form-control" />
+                                <span asp-validation-for="Codigo" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Contenido" class="control-label"></label>
+                                <input asp-for="Contenido" class="form-control" />
+                                <span asp-validation-for="Contenido" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Precio" class="control-label"></label>
+                                <input asp-for="Precio" type="number" class="form-control" />
+                                <span asp-validation-for="Precio" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Descuento" class="control-label"></label>
+                                <input asp-for="Descuento" type="number" class="form-control" />
+                                <span asp-validation-for="Descuento" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Stock" class="control-label"></label>
+                                <input asp-for="Stock" type="number" class="form-control" />
+                                <span asp-validation-for="Stock" class="text-danger"></span>
+                            </div>
+                    </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                    <label asp-for="Imagen1" class="control-label"></label>
+                                    <input asp-for="Imagen1" class="form-control" />
+                                    <span asp-validation-for="Imagen1" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Imagen2" class="control-label"></label>
+                                <input asp-for="Imagen2" class="form-control" />
+                                <span asp-validation-for="Imagen2" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Imagen3" class="control-label"></label>
+                                <input asp-for="Imagen3" class="form-control" />
+                                <span asp-validation-for="Imagen3" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Valoracion" class="control-label"></label>
+                                <input asp-for="Valoracion" type="number" class="form-control" />
+                                <span asp-validation-for="Valoracion" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="CategoriaProducto" class="control-label"></label>
+                                <select asp-for="CategoriaProducto" class="form-control" asp-items="Html.GetEnumSelectList<CategoriaProducto>()"></select>
+                                <span asp-validation-for="CategoriaProducto" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="LineaId" class="control-label"></label>
+                                <select asp-for="LineaId" class="form-control" asp-items=" ViewBag.Lineas"></select>
+                                <span asp-validation-for="LineaId" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="CaracteristicaId" class="control-label"></label>
+                                <select asp-for="CaracteristicaId" class="form-control" asp-items="ViewBag.Caracteristicas"></select>
+                                <span asp-validation-for="CaracteristicaId" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Descripcion1" class="control-label"></label>
+                                <textarea asp-for="Descripcion1" class="form-control"></textarea>
+                                <span asp-validation-for="Descripcion1" class="text-danger"></span>
+                            </div>
+                        </div>
+                </div>
+
+                    <div class="col-md-4 offset-4 text-center">
+                        <img width="100%" id="Imagen1Preview" />
+                        <img width="100%" id="Imagen2Preview" />
+                        <img width="100%" id="Imagen3Preview" />
+                    </div>
+
+
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-outline-success float-right"/>
+                    <a class="btn btn-outline-secondary" asp-action="Index">Ver Todos</a>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var output = document.getElementById('ImagenPreview');
+            output.src = $("#Imagen1").val();
+        })
+        $("#Imagen1").on("change", function(){
+            var output = document.getElementById("Imagen1Preview");
+            output.src = $(this).val();
+        })
+
+
+        $(document).ready(function () {
+            var output = document.getElementById('ImagenPreview');
+            output.src = $("#Imagen2").val();
+        })
+        $("#Imagen2").on("change", function () {
+            var output = document.getElementById("Imagen2Preview");
+            output.src = $(this).val();
+        })
+
+
+        $(document).ready(function () {
+            var output = document.getElementById('ImagenPreview');
+            output.src = $("#Imagen1").val();
+        })
+         $("#Imagen3").on("change", function(){
+            var output = document.getElementById("Imagen3Preview");
+            output.src = $(this).val();
+        })
+
+    </script>
+}
