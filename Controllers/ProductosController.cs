@@ -1,5 +1,6 @@
 ﻿using E_Commerce_V2.Data;
 using E_Commerce_V2.Data.Services;
+using E_Commerce_V2.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -43,17 +44,18 @@ namespace E_Commerce_V2.Controllers
 
         // POST: ProductosController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create(NewProductoVM producto)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                var productoDropdownsData = await _service.GetNewProductoDropdownsValues();
+
+                ViewBag.Caracteristicas = new SelectList(productoDropdownsData.Caracteristicas, "Id", "Nombre");
+                ViewBag.Lineas = new SelectList(productoDropdownsData.Lineas, "Id", "Nombre");
+                return View(producto);
             }
-            catch
-            {
-                return View();
-            }
+            await _service.AddNewProductoAsync(producto);
+        return RedirectToAction(nameof(Index));
         }
 
         // GET: ProductosController/Edit/5

@@ -9,5 +9,6 @@ namespace E_Commerce_V2.Data.Services
     {
         Task <Producto> GetProductoByIdAsync(int id);
         Task<NewProductoDropdownsVM> GetNewProductoDropdownsValues();
+        Task AddNewProductoAsync(NewProductoVM data);
     }
 }

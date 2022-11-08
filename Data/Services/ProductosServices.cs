@@ -15,6 +15,29 @@ namespace E_Commerce_V2.Data.Services
             _context = context;
         }
 
+        public async Task AddNewProductoAsync(NewProductoVM data)
+        {
+            var newProducto = new Producto()
+            {
+                Codigo = data.Codigo,   
+                Nombre = data.Nombre,
+                Descripcion1 = data.Descripcion1,
+                Contenido = data.Contenido,
+                Imagen1= data.Imagen1,
+                Imagen2= data.Imagen2,
+                Imagen3 = data.Imagen3,
+                Precio= data.Precio,
+                Descuento= data.Descuento,
+                Stock= data.Stock,
+                Valoracion= data.Valoracion,
+                CategoriaProducto= data.CategoriaProducto,
+                CaracteristicaId= data.CaracteristicaId,    
+                LineaId= data.LineaId
+            };
+            await _context.Productos.AddAsync(newProducto);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<NewProductoDropdownsVM> GetNewProductoDropdownsValues()
         {
             var response = new NewProductoDropdownsVM()
