@@ -52,7 +52,6 @@
                                 <span asp-validation-for="Stock" class="text-danger"></span>
                             </div>
                     </div>
-
                         <div class="col-md-6">
                             <div class="form-group">
                                     <label asp-for="Imagen1" class="control-label"></label>
@@ -96,7 +95,6 @@
                                 <span asp-validation-for="CaracteristicaId" class="text-danger"></span>
                             </div>
                         </div>
-
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label asp-for="Descripcion1" class="control-label"></label>
@@ -108,15 +106,10 @@
 
                     <div class="col-md-4 offset-4 text-center">
                         <img width="100%" id="Imagen1Preview" />
+                        <img width="100%" id="Imagen2Preview" />
+                        <img width="100%" id="Imagen3Preview" />
                     </div>
 
-               @*  <div class="col-md-4 offset-4 text-center">
-                        <img width="100%" id="Imagen2Preview" />
-                </div>
-
-                    <div class="col-md-4 offset-4 text-center">
-                        <img width="100%" id="Imagen3Preview" />
-                    </div>*@
 
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-outline-success float-right"/>
@@ -130,18 +123,18 @@
 
 @section Scripts{
     <script>
-        $("#Imagen1").on("change" function(){
+        $("#Imagen1").on("change", function(){
             var output = document.getElementById("Imagen1Preview");
             output.src = $(this).val();
         })
-        //$("#Imagen2").on("change" function () {
-        //    var output = document.getElementById("Imagen2Preview");
-        //    output.src = $(this).val();
-        //})
-        // $("#Imagen3").on("change" function(){
-        //    var output = document.getElementById("Imagen3Preview");
-        //    output.src = $(this).val();
-        //})
+        $("#Imagen2").on("change", function () {
+            var output = document.getElementById("Imagen2Preview");
+            output.src = $(this).val();
+        })
+         $("#Imagen3").on("change", function(){
+            var output = document.getElementById("Imagen3Preview");
+            output.src = $(this).val();
+        })
 
     </script>
 }
