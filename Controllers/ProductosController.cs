@@ -25,6 +25,19 @@ namespace E_Commerce_V2.Controllers
             return View(data);
         }
 
+        // GET: ProductosController
+        public async Task<ActionResult> Filter(string searchString)
+        {
+            var data = await _service.GetAllAsync(n => n.Linea, m => m.Caracteristica);
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                var filteredResult = data.Where(n => n.Nombre.Contains(searchString) || n.Descripcion1.Contains(searchString)).ToList();
+                return View("Index", filteredResult);
+            }            
+            return View("Index", data);
+        }
+
         // GET: ProductosController/Details/5
         public async Task< ActionResult> Details(int id)
         {
@@ -57,12 +70,6 @@ namespace E_Commerce_V2.Controllers
             await _service.AddNewProductoAsync(producto);
         return RedirectToAction(nameof(Index));
         }
-
-
-
-
-
-
 
         // GET: ProductosController/Edit/1
         public async Task<ActionResult> Edit(int id)
