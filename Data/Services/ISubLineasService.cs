@@ -7,6 +7,9 @@ namespace E_Commerce_V2.Data.Services
 {
     public interface ISubLineasService : IEntityBaseRepository<SubLinea>
     {
-        Task<NewLineaDropdownsVM> GetNewLineaDropdownsValues();
+        Task<SubLinea> GetSubLineaByIdAsync(int id);
+        Task<NewSubLineaDropdownsVM> GetNewSubLineaDropdownsValues();
+        Task AddNewSubLineaAsync(NewSubLineaVM data);
+        Task UpdateSubLineaAsync(NewSubLineaVM data);
     }
 }

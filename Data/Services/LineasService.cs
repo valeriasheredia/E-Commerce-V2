@@ -18,9 +18,9 @@ namespace E_Commerce_V2.Data.Services
             _context = context;
         }
 
-        public async Task<NewLineaDropdownsVM> GetNewLineaDropdownsValues()
+        public async Task<NewSubLineaDropdownsVM> GetNewLineaDropdownsValues()
         {
-            var response = new NewLineaDropdownsVM();
+            var response = new NewSubLineaDropdownsVM();
             response.Lineas = await _context.Lineas.OrderBy(n => n.Nombre).ToListAsync();
             return response;
         }

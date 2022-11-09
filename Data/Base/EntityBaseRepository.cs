@@ -37,7 +37,6 @@ namespace E_Commerce_V2.Data.Base
             query = includeProperties.Aggregate(query, (current, includeProperties) => current.Include(includeProperties));
             return await query.ToListAsync();
         }
-
         public async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FirstOrDefaultAsync(n => n.Id == id);      
 
         public async Task UpdateAsync(int id, T entity)

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace E_Commerce_V2.Data.ViewModels
 {
-    public class NewCaracteristicaDropdownsVM
+    public class NewSubCaracteristicaDropdownsVM
     {
 
-        public NewCaracteristicaDropdownsVM()
+        public NewSubCaracteristicaDropdownsVM()
         {
             Caracteristicas = new List<Caracteristica>();
         }

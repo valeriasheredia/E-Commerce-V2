@@ -1,4 +1,4 @@
-﻿@model SubCaracteristica
+﻿@model NewSubCaracteristicaVM
 
 @{
     ViewData["Title"] = "Editar Sub-Característica";
@@ -36,9 +36,9 @@
                     </div>
 
                      <div class="form-group">
-                        <label asp-for="Caracteristica.Nombre" class="control-label"></label>
-                        <input asp-for="Caracteristica.Nombre" class="form-control" />
-                        <span asp-validation-for="Caracteristica.Nombre" class="text-danger"></span>
+                        <label asp-for="CaracteristicaId" class="control-label"></label>
+                        <select asp-for="CaracteristicaId" class="form-control" asp-items="ViewBag.Caracteristicas"> </select>
+                        <span asp-validation-for="CaracteristicaId" class="text-danger"></span>
                     </div>
                   
 

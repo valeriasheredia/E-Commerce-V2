@@ -41,7 +41,6 @@ namespace E_Commerce_V2.Controllers
             return View();
         }
 
-
         // POST: CaracteristicasController/Create
         [HttpPost]
         public async Task<IActionResult> Create([Bind("Nombre, Descripcion, Imagen")] Caracteristica caracteristica)

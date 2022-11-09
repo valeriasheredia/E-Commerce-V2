@@ -7,6 +7,9 @@ namespace E_Commerce_V2.Data.Services
 {
     public interface ISubCaracteristicasService : IEntityBaseRepository<SubCaracteristica>
     {
-        Task<NewCaracteristicaDropdownsVM> GetNewCaracteristicaDropdownsValues();
+        Task<SubCaracteristica> GetSubCaracteristicaByIdAsync(int id);
+        Task<NewSubCaracteristicaDropdownsVM> GetNewSubCaracteristicaDropdownsValues();
+        Task AddNewSubCaracteristicaAsync(NewSubCaracteristicaVM data);
+        Task UpdateSubCaracteristicasAsync(NewSubCaracteristicaVM data);
     }
 }

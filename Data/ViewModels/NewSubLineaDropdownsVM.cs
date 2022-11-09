@@ -4,10 +4,10 @@ using System.Reflection.PortableExecutable;
 
 namespace E_Commerce_V2.Data.ViewModels
 {
-    public class NewLineaDropdownsVM
+    public class NewSubLineaDropdownsVM
     {
 
-        public NewLineaDropdownsVM()
+        public NewSubLineaDropdownsVM()
         {
             Lineas = new List<Linea>();
         }

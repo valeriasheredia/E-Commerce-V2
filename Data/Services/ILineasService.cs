@@ -8,7 +8,7 @@ namespace E_Commerce_V2.Data.Services
 {
     public interface ILineasService : IEntityBaseRepository<Linea>
     {
-        Task<NewLineaDropdownsVM> GetNewLineaDropdownsValues();
+        Task<NewSubLineaDropdownsVM> GetNewLineaDropdownsValues();
 
     }
 }

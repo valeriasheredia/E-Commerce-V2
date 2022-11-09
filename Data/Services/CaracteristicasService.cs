@@ -19,12 +19,12 @@ namespace E_Commerce_V2.Data.Services
             _context = context;
         }
 
-        public async  Task<NewCaracteristicaDropdownsVM> GetNewCaracteristicaDropdownsValues()
-        {
-            var response = new NewCaracteristicaDropdownsVM();
-            response.Caracteristicas = await _context.Caracteristicas.OrderBy(n => n.Nombre).ToListAsync();
-            return response;
-        }
+        //public async  Task<NewSubCaracteristicaDropdownsVM> GetNewSubCaracteristicaDropdownsValues()
+        //{
+        //    var response = new NewSubCaracteristicaDropdownsVM();
+        //    response.Caracteristicas = await _context.Caracteristicas.OrderBy(n => n.Nombre).ToListAsync();
+        //    return response;
+        //}
 
     }
 }

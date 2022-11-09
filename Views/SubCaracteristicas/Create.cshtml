@@ -1,4 +1,4 @@
-﻿@model SubCaracteristica
+﻿@model NewSubCaracteristicaVM
 
 @{
     ViewData["Title"] = "Agregar nueva Sub-Característica";
@@ -49,15 +49,15 @@
     </div>
 </div>
 
-@*@section Scripts{
+@section Scripts{
     <script>
-        $(document).ready(function () {
-            var output = document.getElementById('ProfilePicturePreview');
-            output.src = $("#ProfilePictureURL").val();
-        })
-        $("#ProfilePictureURL").on("change", function () {
+        //$(document).ready(function () {
+        //    var output = document.getElementById('ProfilePicturePreview');
+        //    output.src = $("#ProfilePictureURL").val();
+        //})
+        $("#Imagen").on("change", function () {
             var output = document.getElementById('ProfilePicturePreview');
             output.src = $(this).val();
         })
-    </script>*@
+    </script>
 }
