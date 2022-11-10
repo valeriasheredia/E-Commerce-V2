@@ -2,12 +2,12 @@
 
 namespace E_Commerce_V2.Models
 {
-    public class CarritoDetalle
+    public class ShoppingCartItem
     {
         [Key]
         public int Id { get; set; }
         public Producto Producto { get; set; }
-        public int Monto { get; set; }
-        public string CarritoId { get; set; }
+        public int Amount { get; set; }
+        public string ShoppingCartId { get; set; }
     }
 }
