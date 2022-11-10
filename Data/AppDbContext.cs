@@ -19,5 +19,7 @@ namespace E_Commerce_V2.Data
         public DbSet<Caracteristica> Caracteristicas { get; set; }
         public DbSet<SubCaracteristica> SubCaracteristicas { get; set; }
         public DbSet<Producto> Productos { get; set; }
+        public DbSet<Orden> Ordenes { get; set; }
+        public DbSet<OrdenDetalle> OrdenDetalles { get; set; }
     }
 }
