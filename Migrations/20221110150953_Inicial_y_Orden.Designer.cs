@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace E_Commerce_V2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221102182314_PrimeraMigracion")]
-    partial class PrimeraMigracion
+    [Migration("20221110150953_Inicial_y_Orden")]
+    partial class Inicial_y_Orden
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,13 +28,16 @@ namespace E_Commerce_V2.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descripcion")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Imagen")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -49,17 +52,65 @@ namespace E_Commerce_V2.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descripcion")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Imagen")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Lineas");
+                });
+
+            modelBuilder.Entity("E_Commerce_V2.Models.Orden", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ordenes");
+                });
+
+            modelBuilder.Entity("E_Commerce_V2.Models.OrdenDetalle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Monto")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrdenId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Precio")
+                        .HasColumnType("float");
+
+                    b.Property<int>("ProductoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrdenId");
+
+                    b.HasIndex("ProductoId");
+
+                    b.ToTable("OrdenDetalles");
                 });
 
             modelBuilder.Entity("E_Commerce_V2.Models.Producto", b =>
@@ -76,9 +127,11 @@ namespace E_Commerce_V2.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Codigo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Contenido")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Descripcion1")
@@ -88,6 +141,7 @@ namespace E_Commerce_V2.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Imagen1")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Imagen2")
@@ -100,6 +154,7 @@ namespace E_Commerce_V2.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Precio")
@@ -131,12 +186,14 @@ namespace E_Commerce_V2.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Descripcion")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Imagen")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -154,6 +211,7 @@ namespace E_Commerce_V2.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Descripcion")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Imagen")
@@ -163,6 +221,7 @@ namespace E_Commerce_V2.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -170,6 +229,25 @@ namespace E_Commerce_V2.Migrations
                     b.HasIndex("LineaId");
 
                     b.ToTable("SubLineas");
+                });
+
+            modelBuilder.Entity("E_Commerce_V2.Models.OrdenDetalle", b =>
+                {
+                    b.HasOne("E_Commerce_V2.Models.Orden", "Orden")
+                        .WithMany("ordenDetalles")
+                        .HasForeignKey("OrdenId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("E_Commerce_V2.Models.Producto", "Producto")
+                        .WithMany()
+                        .HasForeignKey("ProductoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Orden");
+
+                    b.Navigation("Producto");
                 });
 
             modelBuilder.Entity("E_Commerce_V2.Models.Producto", b =>
@@ -225,6 +303,11 @@ namespace E_Commerce_V2.Migrations
                     b.Navigation("Productos");
 
                     b.Navigation("SubLineas");
+                });
+
+            modelBuilder.Entity("E_Commerce_V2.Models.Orden", b =>
+                {
+                    b.Navigation("ordenDetalles");
                 });
 #pragma warning restore 612, 618
         }

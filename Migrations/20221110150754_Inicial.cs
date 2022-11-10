@@ -2,7 +2,7 @@
 
 namespace E_Commerce_V2.Migrations
 {
-    public partial class PrimeraMigracion : Migration
+    public partial class Inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,8 +12,8 @@ namespace E_Commerce_V2.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Imagen = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -27,8 +27,8 @@ namespace E_Commerce_V2.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Imagen = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -37,13 +37,27 @@ namespace E_Commerce_V2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Ordenes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ordenes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SubCaracteristicas",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Imagen = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CaracteristicaId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -64,11 +78,11 @@ namespace E_Commerce_V2.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Codigo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Codigo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Descripcion1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Contenido = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Imagen1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Contenido = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Imagen1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Imagen2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Imagen3 = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -102,8 +116,8 @@ namespace E_Commerce_V2.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Imagen = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LineaId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -117,6 +131,44 @@ namespace E_Commerce_V2.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "OrdenDetalles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Monto = table.Column<int>(type: "int", nullable: false),
+                    Precio = table.Column<double>(type: "float", nullable: false),
+                    ProductoId = table.Column<int>(type: "int", nullable: false),
+                    OrdenId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrdenDetalles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrdenDetalles_Ordenes_OrdenId",
+                        column: x => x.OrdenId,
+                        principalTable: "Ordenes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrdenDetalles_Productos_ProductoId",
+                        column: x => x.ProductoId,
+                        principalTable: "Productos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrdenDetalles_OrdenId",
+                table: "OrdenDetalles",
+                column: "OrdenId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrdenDetalles_ProductoId",
+                table: "OrdenDetalles",
+                column: "ProductoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Productos_CaracteristicaId",
@@ -142,13 +194,19 @@ namespace E_Commerce_V2.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Productos");
+                name: "OrdenDetalles");
 
             migrationBuilder.DropTable(
                 name: "SubCaracteristicas");
 
             migrationBuilder.DropTable(
                 name: "SubLineas");
+
+            migrationBuilder.DropTable(
+                name: "Ordenes");
+
+            migrationBuilder.DropTable(
+                name: "Productos");
 
             migrationBuilder.DropTable(
                 name: "Caracteristicas");
