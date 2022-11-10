@@ -10,7 +10,6 @@ namespace E_Commerce_V2.Models
         public string Email { get; set; }
         public string UserId { get; set; }
 
-
         public List<OrdenDetalle> ordenDetalles { get; set; }
     }
 }
