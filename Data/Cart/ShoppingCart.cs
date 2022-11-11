@@ -1,5 +1,8 @@
 ﻿using E_Commerce_V2.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,6 +20,19 @@ namespace E_Commerce_V2.Data.Carrito
         {
             _context = context;
         }
+
+        public static ShoppingCart GetShoppingCart(IServiceProvider services)
+        {
+            ISession session =services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+            var context = services.GetService<AppDbContext>();
+
+            string cartId = session.GetString("CartId")?? Guid.NewGuid().ToString();
+            session.SetString("CartId", cartId);
+
+            return new ShoppingCart(context) { ShoppingCartId = cartId};
+        }
+
+
 
         public void AddItemToCart(Producto producto)
         {

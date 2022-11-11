@@ -1,7 +1,9 @@
 using E_Commerce_V2.Data;
+using E_Commerce_V2.Data.Carrito;
 using E_Commerce_V2.Data.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -37,6 +39,11 @@ namespace E_Commerce_V2
             services.AddScoped<ISubLineasService, SubLineasService>();
             services.AddScoped<IProductosService, ProductosServices>();
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
+
+            services.AddSession();
+
             services.AddControllersWithViews();
         }
 
@@ -57,6 +64,7 @@ namespace E_Commerce_V2
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthorization();
 
