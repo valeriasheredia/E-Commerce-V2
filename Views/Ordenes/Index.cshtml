@@ -1,5 +1,63 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using E_Commerce_V2.Data.ViewModels;
+@model ShoppingCartVM
+
 @{
+    ViewData["Title"] = "Listado de compras";
 }
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <div class="text-center">
+            <h2>Listado de tus compras</h2>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Cantidad seleccionada</th>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Subtotal</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.shoppingCart.shoppingCartItems)
+               {
+                  <tr>
+                      <td class="align-middle">@item.Amount</td>
+                        <td class="align-middle">@item.Producto.Nombre</td>
+                        <td class="align-middle">@item.Producto.Precio</td>
+                        <td class="align-middle">@((item.Amount * item.Producto.Precio).ToString("c"))</td>
+                        <td class="align-middle">
+                            <a class="text-danger" asp-controller="Orders" asp-action="RemoveItemFromShoppingCart" asp-route-id="@item.Producto.Id">
+                                <i class=" bi bi-cart-dash"></i>
+                            </a>
+                            <a class="text-success" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Producto.Id">
+                                <i class=" bi bi-cart-plus"></i>
+                            </a>
+                        </td>
+                    </tr> 
+               }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2"></td>
+                    <td><b>Total: </b></td>
+                    <td>
+                        @Model.ShoppingCartTotal.ToString("c")
+                    </td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="text-center">
+            <div class="btn btn-group">
+                <a class="btn btn-outline-success" asp-controller="Productos" asp-action="Index">
+                    Agregar mas productos
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
