@@ -10,11 +10,12 @@ namespace E_Commerce_V2.Controllers
     {
         private readonly IProductosService _productosService;
         private readonly ShoppingCart _shoppingCart;
-        public OrdersController(IProductosService productosService,
-            ShoppingCart shoppingCart)
+        private readonly IOrdersService _ordersService;
+        public OrdersController(IProductosService productosService,ShoppingCart shoppingCart, IOrdersService ordersService)
         {
             _productosService = productosService; 
             _shoppingCart = shoppingCart;
+            _ordersService = ordersService;
         }
 
       
@@ -30,7 +31,6 @@ namespace E_Commerce_V2.Controllers
             };
             return View(response);
         }
-
 
         public async Task<IActionResult> AddItemToShoppingCart(int id)
         {
@@ -50,6 +50,17 @@ namespace E_Commerce_V2.Controllers
                 _shoppingCart.RemoveItemFromCart(item);
             }
             return RedirectToAction(nameof(ShoppingCart));
+        }
+
+        public async Task<IActionResult> CompleteOrder()
+        {
+            var items = _shoppingCart.GetShoppingCartItems();
+            string userId = "";
+            string userEmailAddress = "";
+
+            await _ordersService.StoreOrderAsync(items, userId, userEmailAddress);
+            await _shoppingCart.ClearShoppingCartAsync();
+            return View("OrderCompleted");
         }
     }
 }

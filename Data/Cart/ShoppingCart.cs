@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace E_Commerce_V2.Data.Carrito
 {
@@ -75,7 +76,6 @@ namespace E_Commerce_V2.Data.Carrito
             _context.SaveChanges();
         }
 
-
         public List<ShoppingCartItem> GetShoppingCartItems()
         {
             return ShoppingCartItems ?? (ShoppingCartItems = 
@@ -87,6 +87,16 @@ namespace E_Commerce_V2.Data.Carrito
         public double GetShoppingCartTotal() => 
             (double)_context.ShoppingCartItems
             .Where(n => n.ShoppingCartId == ShoppingCartId)
-            .Select(n => n.Producto.Precio * n.Amount).Sum();      
+            .Select(n => n.Producto.Precio * n.Amount).Sum();   
+        
+        public async Task ClearShoppingCartAsync()
+        {
+            var items = await _context.ShoppingCartItems.
+                Where(n => n.ShoppingCartId == ShoppingCartId)
+                .ToListAsync();
+
+            _context.ShoppingCartItems.RemoveRange(items);
+            await _context.SaveChangesAsync();
+        }
     }
 }
