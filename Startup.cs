@@ -78,6 +78,7 @@ namespace E_Commerce_V2
 
             //Seed database
             AppDbInitializer.Seed(app);
+            AppDbInitializer.SeedUsersAndRolesAsync(app).Wait();
         }
     }
 }
