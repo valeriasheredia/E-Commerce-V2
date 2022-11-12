@@ -44,6 +44,23 @@
                         @await Component.InvokeAsync("ShoppingCartSummary")
                     </ul>
 
+                    @*Seccion de perfil de usuario*@
+                    <div class="dropdown">
+                        <button class="btn btn-outline-success dropdown-toggle"
+                                type="button" id="profile-btn"
+                        data-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-badge"></i> Hola Usuario
+                    </button>
+                        <ul class="dropdown-menu" aria-labelledby="profile-btn">
+                            <li>
+                                <a class="dropdown-item" asp-controller="Orders"
+                                asp-action="Index">
+                                <i class="bi bi-list"></i>Ordenes
+                            </a>
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
             </div>
         </nav>
