@@ -38,6 +38,7 @@ namespace E_Commerce_V2
             services.AddScoped<ISubCaracteristicasService, SubCaracteristicasService>();
             services.AddScoped<ISubLineasService, SubLineasService>();
             services.AddScoped<IProductosService, ProductosServices>();
+            services.AddScoped<IOrdersService, OrdersService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
