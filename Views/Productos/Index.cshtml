@@ -33,8 +33,8 @@
                             <div class="card-body">
                             <p class="card-text"><b>Código: </b>@item.Codigo</p>
                            @* <p class="card-text"><b>Descripción: </b>@item.Descripcion1</p>*@
-                            <p class="card-text"><b>Contenido: </b>@item.Contenido</p>@*
-                            <p class="card-text"><b>Precio: </b>@item.Precio</p>*@
+                            <p class="card-text"><b>Contenido: </b>@item.Contenido</p>
+                            <p class="card-text"><b>Precio: </b>@item.Precio</p>
                             <p class="card-text"><b>Descuento: </b>@item.Descuento</p>
                             <p class="card-text"><b>Valoracion: </b>@item.Valoracion</p>
                             <p class="card-text"><b>Categoria: </b>@item.CategoriaProducto</p>
@@ -58,7 +58,11 @@
                                 <p class="card-text">
                                     <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.Id">
                                         <i class="bi bi-eye-fill"></i> Ver Detalles</a>
-                                    <a class="btn btn-success text-white"><i class="bi bi-cart-plus"></i> Agregar al carrito (Precio @item.Precio.ToString("c"))</a>
+                                <a class="btn btn-success text-white" 
+                                asp-controller="Orders" 
+                                asp-action="AddToShoppingCart" 
+                                asp-route-id="@item.Id">
+                                <i class="bi bi-cart-plus"></i> Agregar al carrito (Precio @item.Precio.ToString("c"))</a>
                                 </p>
                             </div>
                         </div>

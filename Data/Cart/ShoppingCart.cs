@@ -11,28 +11,24 @@ namespace E_Commerce_V2.Data.Carrito
     public class ShoppingCart
     {
         public AppDbContext _context { get; set; }
-
         public string ShoppingCartId { get; set; }
-
-        public List<ShoppingCartItem> shoppingCartItems { get; set; }
+        public List<ShoppingCartItem> ShoppingCartItems { get; set; }
 
         public ShoppingCart(AppDbContext context)
         {
             _context = context;
         }
-
-        public static ShoppingCart GetShoppingCart(IServiceProvider services)
+        
+        public static ShoppingCart GetShoppingCart(IServiceProvider service)
         {
-            ISession session =services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
-            var context = services.GetService<AppDbContext>();
+            ISession session =service.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+            var context = service.GetService<AppDbContext>();
 
             string cartId = session.GetString("CartId")?? Guid.NewGuid().ToString();
             session.SetString("CartId", cartId);
 
             return new ShoppingCart(context) { ShoppingCartId = cartId};
         }
-
-
 
         public void AddItemToCart(Producto producto)
         {
@@ -80,14 +76,17 @@ namespace E_Commerce_V2.Data.Carrito
         }
 
 
-
         public List<ShoppingCartItem> GetShoppingCartItems()
         {
-            return shoppingCartItems ?? (shoppingCartItems =  _context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Include(n => n.Producto).ToList());
+            return ShoppingCartItems ?? (ShoppingCartItems = 
+                _context.ShoppingCartItems.
+                Where(n => n.ShoppingCartId == ShoppingCartId)
+                .Include(n => n.Producto).ToList());
         }
 
-        public double GetShoppingCartTotal() =>  (double)_context.ShoppingCartItems.Where(n => n.ShoppingCartId == ShoppingCartId).Select(n => n.Producto.Precio * n.Amount).Sum();
-           
-        
+        public double GetShoppingCartTotal() => 
+            (double)_context.ShoppingCartItems
+            .Where(n => n.ShoppingCartId == ShoppingCartId)
+            .Select(n => n.Producto.Precio * n.Amount).Sum();      
     }
 }

@@ -31,8 +31,8 @@
                         <div class="card-body">
                             <p class="card-text"><b>Código: </b>@Model.Codigo</p>
                              <p class="card-text"><b>Descripción: </b>@Model.Descripcion1</p>
-                            <p class="card-text"><b>Contenido: </b>@Model.Contenido</p>@*
-                        <p class="card-text"><b>Precio: </b>@Model.Precio</p>*@
+                            <p class="card-text"><b>Contenido: </b>@Model.Contenido</p>
+                        <p class="card-text"><b>Precio: </b>@Model.Precio</p>
                             <p class="card-text"><b>Descuento: </b>@Model.Descuento</p>
                             <p class="card-text"><b>Valoracion: </b>@Model.Valoracion</p>
                             <p class="card-text"><b>Categoria: </b>@Model.CategoriaProducto</p>
@@ -66,7 +66,9 @@
                                 <a class="btn btn-outline-primary float-right" asp-action="Index">
                                     Regresar al Listado
                                 </a>
-                                <a class="btn btn-success text-white"><i class="bi bi-cart-plus"></i> Agregar al carrito (Precio @Model.Precio.ToString("c"))</a>
+                            <a class="btn btn-success text-white" asp-controller="Orders" asp-action="AddToShoppingCart" asp-route-id="@Model.Id">
+                                <i class="bi bi-cart-plus"></i> Agregar al carrito (Precio @Model.Precio.ToString("c"))
+                            </a>
                             </p>
                         </div>
                     </div>

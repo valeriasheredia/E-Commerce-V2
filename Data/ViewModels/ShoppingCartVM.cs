@@ -4,7 +4,7 @@ namespace E_Commerce_V2.Data.ViewModels
 {
     public class ShoppingCartVM
     {
-        public ShoppingCart shoppingCart { get; set; }
+        public ShoppingCart ShoppingCart { get; set; }
         public double ShoppingCartTotal { get; set; }
 
     }

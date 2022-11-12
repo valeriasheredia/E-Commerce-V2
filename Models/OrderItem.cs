@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace E_Commerce_V2.Models
 {
@@ -13,7 +13,7 @@ namespace E_Commerce_V2.Models
         [ForeignKey("ProductoId")]
 
         public Producto Producto { get; set; }
-        public int OrdenId { get; set; }
+        public int OrderId { get; set; }
         [ForeignKey("OrderId")]
         public Order Order { get; set; }
     }
