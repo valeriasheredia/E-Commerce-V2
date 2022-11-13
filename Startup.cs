@@ -47,7 +47,8 @@ namespace E_Commerce_V2
             services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
 
             //Authentication and Authorization
-            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>();
             services.AddMemoryCache();
             services.AddSession();
             services.AddAuthentication(options =>
@@ -81,7 +82,7 @@ namespace E_Commerce_V2
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
