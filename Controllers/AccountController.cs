@@ -1,4 +1,5 @@
 ﻿using E_Commerce_V2.Data;
+using E_Commerce_V2.Data.Static;
 using E_Commerce_V2.Data.ViewModels;
 using E_Commerce_V2.Models;
 using Microsoft.AspNetCore.Identity;
@@ -47,5 +48,29 @@ namespace E_Commerce_V2.Controllers
         }
 
         public IActionResult Register() => View(new RegisterVM());
+
+        [HttpPost]
+        public async Task<IActionResult> Register (RegisterVM registerVM)
+        {
+            if (!ModelState.IsValid) return View(registerVM);
+
+            var user = await _userManager.FindByEmailAsync(registerVM.EmailAddress);
+            if(user!= null)
+            {
+                TempData["Error"] = "Este correo electrónico ya existe";
+                return View(registerVM);
+            }
+            var newUser = new ApplicationUser()
+            {
+                Nombre = registerVM.Nombre,
+                Email = registerVM.EmailAddress,
+                UserName = registerVM.EmailAddress
+            };
+            var newUserResponse = await _userManager.CreateAsync(newUser, registerVM.Password);
+            if (newUserResponse.Succeeded)
+                await _userManager.AddToRoleAsync(newUser, UserRoles.User);
+
+            return View("RegisterCompleted");
+        }
     }           
 }
