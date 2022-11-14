@@ -10,7 +10,7 @@ namespace E_Commerce_V2.Data.ViewModels
 
 
         [Display(Name = "Contraseña")]
-        [Required]
+        [Required(ErrorMessage ="La Contraseña es requerida")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }

@@ -10,6 +10,14 @@
         <p>
             <h4>Ingrese a su cuenta</h4>
         </p>
+
+        @if(TempData["Error"] != null) 
+        {
+            <div class="col-md-12 alert alert-danger">
+                <span><b>Disculpe</b> - @TempData["Error"]</span>
+            </div>
+        }
+
         <div class="row">
             <div class="col-md-8 offset-2">
                 <form asp-action="Login">
@@ -27,7 +35,7 @@
                     </div>
 
                     <div class=" form-group">
-                        <input class="btn btn-outline-success float-right" type="submit" value="Ingresar"/>
+                        <input class="btn btn-outline-success float-right" type="submit" value="Log in"/>
                         <a class="btn btn-outline-secondary" asp-controller="Producto" asp-action="Index">Cancelar</a>
                     </div>
                 
