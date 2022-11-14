@@ -45,6 +45,7 @@ namespace E_Commerce_V2.Controllers
             TempData["Error"] = "Credenciales inválidas. Inténtelo nuevamente";
             return View(loginVM);
         }
-        
+
+        public IActionResult Register() => View(new RegisterVM());
     }           
 }
