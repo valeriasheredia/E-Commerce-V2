@@ -1,6 +1,7 @@
 ﻿using E_Commerce_V2.Data;
 using E_Commerce_V2.Data.Services;
 using E_Commerce_V2.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_V2.Controllers
 {
+    [Authorize]
     public class SubLineasController : Controller
     {
         private readonly ISubLineasService _service;
@@ -20,6 +22,7 @@ namespace E_Commerce_V2.Controllers
         }
 
         // GET: SubLineasController
+        [AllowAnonymous]
         public async Task<ActionResult> Index()
         {
             var data = await _service.GetAllAsync(n => n.Linea);
@@ -27,6 +30,7 @@ namespace E_Commerce_V2.Controllers
         }
 
         //GET: SubLinea/Details/1
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var subLineaDetails = await _service.GetSubLineaByIdAsync(id);

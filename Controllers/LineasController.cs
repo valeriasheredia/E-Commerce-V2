@@ -1,6 +1,7 @@
 ﻿using E_Commerce_V2.Data;
 using E_Commerce_V2.Data.Services;
 using E_Commerce_V2.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_V2.Controllers
 {
+    [Authorize]
     public class LineasController : Controller
     {
         private readonly ILineasService _service;
@@ -18,6 +20,7 @@ namespace E_Commerce_V2.Controllers
         }
 
         // GET: LineasController
+        [AllowAnonymous]
         public async Task< ActionResult> Index()
         {
             var data =await _service.GetAllAsync();
@@ -25,6 +28,7 @@ namespace E_Commerce_V2.Controllers
         }
 
         // GET: LineasController/Details/5
+        [AllowAnonymous]
         public async Task<ActionResult> Details(int id)
         {
             var lineaDetalle=await _service.GetByIdAsync(id);

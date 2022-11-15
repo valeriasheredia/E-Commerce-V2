@@ -1,12 +1,14 @@
 ﻿using E_Commerce_V2.Data.Carrito;
 using E_Commerce_V2.Data.Services;
 using E_Commerce_V2.Data.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace E_Commerce_V2.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly IProductosService _productosService;

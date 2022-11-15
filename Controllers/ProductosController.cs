@@ -1,6 +1,7 @@
 ﻿using E_Commerce_V2.Data;
 using E_Commerce_V2.Data.Services;
 using E_Commerce_V2.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_V2.Controllers
 {
+    [Authorize]
     public class ProductosController : Controller
     {
         private readonly IProductosService _service;
@@ -19,6 +21,8 @@ namespace E_Commerce_V2.Controllers
         }
 
         // GET: ProductosController
+
+        [AllowAnonymous]
         public async Task<ActionResult> Index()
         {
             var data = await _service.GetAllAsync(n => n.Linea, m => m.Caracteristica);
@@ -26,6 +30,8 @@ namespace E_Commerce_V2.Controllers
         }
 
         // GET: ProductosController
+
+        [AllowAnonymous]
         public async Task<ActionResult> Filter(string searchString)
         {
             var data = await _service.GetAllAsync(n => n.Linea, m => m.Caracteristica);
@@ -39,6 +45,8 @@ namespace E_Commerce_V2.Controllers
         }
 
         // GET: ProductosController/Details/5
+
+        [AllowAnonymous]
         public async Task< ActionResult> Details(int id)
         {
             var productoDetalle = await _service.GetProductoByIdAsync(id);

@@ -2,6 +2,7 @@
 using E_Commerce_V2.Data.Services;
 using E_Commerce_V2.Data.ViewModels;
 using E_Commerce_V2.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_V2.Controllers
 {
+    [Authorize]
     public class CaracteristicasController : Controller
     {
         private readonly ICaracteristicasService _service;
@@ -20,6 +22,7 @@ namespace E_Commerce_V2.Controllers
         }
 
         // GET: CaracteristicasController
+        [AllowAnonymous]
         public async Task<ActionResult> Index()
         {
             var data = await _service.GetAllAsync();
@@ -27,6 +30,7 @@ namespace E_Commerce_V2.Controllers
         }
 
         // GET: CaracteristicasController/Details/5
+        [AllowAnonymous]
         public async Task<ActionResult> Details(int id)
         {
             var caracteristicaDetalle=await _service.GetByIdAsync(id);

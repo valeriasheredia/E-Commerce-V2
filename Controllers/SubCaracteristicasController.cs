@@ -1,6 +1,7 @@
 ﻿using E_Commerce_V2.Data;
 using E_Commerce_V2.Data.Services;
 using E_Commerce_V2.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_V2.Controllers
 {
+    [Authorize]
     public class SubCaracteristicasController : Controller
     {
         private readonly ISubCaracteristicasService _service;
@@ -96,11 +98,15 @@ namespace E_Commerce_V2.Controllers
 
 
         // GET: subCaracteristicasController
+
+        [AllowAnonymous]
         public async Task<ActionResult> Index()
         {
             var data = await _service.GetAllAsync(n => n.Caracteristica);
             return View(data);
         }
+
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var subCaracteristicaDetails = await _service.GetSubCaracteristicaByIdAsync(id);
