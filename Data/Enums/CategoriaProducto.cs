@@ -5,6 +5,11 @@
         Clasico = 1,
         Vegano,
         KitExclusivo,
-        Outlet
+        Outlet,
+        PerfumeríaFemenina,
+        PerfumeríaInfantil,
+        PerfumeríaMasculina,
+        Barba,
+        Rostro
     }
 }
