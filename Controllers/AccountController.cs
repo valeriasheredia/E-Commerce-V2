@@ -4,6 +4,7 @@ using E_Commerce_V2.Data.ViewModels;
 using E_Commerce_V2.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace E_Commerce_V2.Controllers
@@ -19,6 +20,12 @@ namespace E_Commerce_V2.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _context = context;
+        }
+
+        public async Task<IActionResult> Users()
+        {
+            var users = await _context.Users.ToListAsync();
+            return View(users);
         }
 
         public IActionResult Login() => View(new LoginVM());
