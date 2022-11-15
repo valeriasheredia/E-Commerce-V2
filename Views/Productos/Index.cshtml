@@ -58,7 +58,10 @@
                                 <p class="card-text">
                                     <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.Id">
                                         <i class="bi bi-eye-fill"></i> Ver Detalles</a>
-                                <a class="btn btn-success text-white" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Id">
+                                <a class="btn btn-success text-white @((item.Stock <= 0)? "disabled" : "")" 
+                                asp-controller="Orders" 
+                                asp-action="AddItemToShoppingCart" 
+                                asp-route-id="@item.Id">
                                 <i class="bi bi-cart-plus"></i> Agregar al carrito (Precio @item.Precio.ToString("c"))</a>
                                 </p>
                             </div>
