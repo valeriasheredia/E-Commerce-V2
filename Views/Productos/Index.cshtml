@@ -15,10 +15,10 @@
                                 <p class="card-text">
                                     <h5 class="card-title">
                                     @item.Nombre
-                                   @* @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                                    {*@
-                                                <a class="text-white float-right" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
-                                   @* }*@
+                                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                    {
+                                        <a class="text-white float-right" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i></a>
+                                    }
                                     </h5>
                                 </p>
                             </div>
@@ -58,10 +58,7 @@
                                 <p class="card-text">
                                     <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.Id">
                                         <i class="bi bi-eye-fill"></i> Ver Detalles</a>
-                                <a class="btn btn-success text-white" 
-                                asp-controller="Orders" 
-                                asp-action="AddItemToShoppingCart" 
-                                asp-route-id="@item.Id">
+                                <a class="btn btn-success text-white" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Id">
                                 <i class="bi bi-cart-plus"></i> Agregar al carrito (Precio @item.Precio.ToString("c"))</a>
                                 </p>
                             </div>
@@ -73,9 +70,12 @@
 </div>
 
 <div style="position:fixed; right:25px; bottom:25px;" class="text-white">
+      @if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                      {
     <a asp-controller="Productos" asp-action="Create" class="btn btn-success">
         <i class="bi bi-plus-circle"></i>Agregar Nuevo
     </a>
+                      }
 </div>
 
 @await Html.PartialAsync("_CreateItem", "Productos")

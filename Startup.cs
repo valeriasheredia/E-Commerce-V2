@@ -82,7 +82,7 @@ namespace E_Commerce_V2
             app.UseAuthentication();
             app.UseAuthorization();
 
-            //app.UseAuthorization();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

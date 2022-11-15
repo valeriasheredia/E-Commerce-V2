@@ -5,7 +5,7 @@ namespace E_Commerce_V2.Models
 {
     public class ApplicationUser: IdentityUser
     {
-        [Display(Name ="Nombre Completo")]
+        [Display(Name ="Nombre")]
         public string Nombre { get; set; }
     }
 }

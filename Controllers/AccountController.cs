@@ -55,7 +55,7 @@ namespace E_Commerce_V2.Controllers
             if (!ModelState.IsValid) return View(registerVM);
 
             var user = await _userManager.FindByEmailAsync(registerVM.EmailAddress);
-            if(user!= null)
+            if(user != null)
             {
                 TempData["Error"] = "Este correo electrónico ya existe";
                 return View(registerVM);

@@ -22,17 +22,24 @@
                        <li class="navbar-nav flex-grow-1"> 
                            <a class="nav-link text-dark" asp-controller="Productos" asp-action="Index"><i class="badge-info bi-film"></i>Productos</a>
                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="bi bi-gear"></i> Management
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" asp-controller="Lineas" asp-action="Index"><i class="bi bi-camera-reels"></i> Lineas</a>
-                                <a class="dropdown-item" asp-controller="SubLineas" asp-action="Index"><i class="bi bi-headset"></i> SubLineas</a>
-                                <a class="dropdown-item" asp-controller="Caracteristicas" asp-action="Index"><i class="bi bi-person-square"></i> Caracteristicas</a>
-                                <a class="dropdown-item" asp-controller="SubCaracteristicas" asp-action="Index"><i class="bi bi-headset"></i> SubCaracteristicas</a>
-                            </div>
-                        </li>
+
+                       @if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                      {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bi bi-gear"></i> Management
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-controller="Lineas" asp-action="Index"><i class="bi bi-camera-reels"></i> Lineas</a>
+                                    <a class="dropdown-item" asp-controller="SubLineas" asp-action="Index"><i class="bi bi-headset"></i> SubLineas</a>
+                                    <a class="dropdown-item" asp-controller="Caracteristicas" asp-action="Index"><i class="bi bi-person-square"></i> Caracteristicas</a>
+                                    <a class="dropdown-item" asp-controller="SubCaracteristicas" asp-action="Index"><i class="bi bi-headset"></i> SubCaracteristicas</a>
+                                </div>
+                            </li>
+                        }
+
+                    
                     </ul>
 
                     <form class="form-inline my-2 my-lg-0" asp-controller="Productos" asp-action="Filter" style="padding-right: 25px;">
