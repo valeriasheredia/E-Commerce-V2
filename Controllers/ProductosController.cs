@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -39,8 +40,15 @@ namespace E_Commerce_V2.Controllers
 
             if (!string.IsNullOrEmpty(searchString))
             {
-                var filteredResult = data.Where(n => n.Nombre.Contains(searchString) || n.Descripcion1.Contains(searchString)).ToList();
-                return View("Index", filteredResult);
+                //var filteredResult = data.Where(n => n.Nombre.ToLower().Contains(searchString.ToLower()) 
+                //|| n.Descripcion1.ToLower().Contains(searchString.ToLower())).ToList();
+                //return View("Index", filteredResult);
+
+                var filteredResultNew = data.Where(n => string.Equals(n.Nombre,searchString, StringComparison.CurrentCultureIgnoreCase) ||
+                   string.Equals(n.Descripcion1, searchString, StringComparison.CurrentCultureIgnoreCase)).ToList();
+
+
+                return View("Index", filteredResultNew);
             }            
             return View("Index", data);
         }
