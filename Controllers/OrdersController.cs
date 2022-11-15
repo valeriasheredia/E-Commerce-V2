@@ -1,5 +1,6 @@
 ﻿using E_Commerce_V2.Data.Carrito;
 using E_Commerce_V2.Data.Services;
+using E_Commerce_V2.Data.Static;
 using E_Commerce_V2.Data.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

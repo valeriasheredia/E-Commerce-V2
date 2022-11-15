@@ -86,5 +86,10 @@ namespace E_Commerce_V2.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Productos");
         }
+
+        public IActionResult AccessDenied(string returnUrl)
+        {
+            return View();
+        }
     }           
 }

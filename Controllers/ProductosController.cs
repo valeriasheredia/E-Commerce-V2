@@ -1,5 +1,6 @@
 ﻿using E_Commerce_V2.Data;
 using E_Commerce_V2.Data.Services;
+using E_Commerce_V2.Data.Static;
 using E_Commerce_V2.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace E_Commerce_V2.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = UserRoles.Admin)]
     public class ProductosController : Controller
     {
         private readonly IProductosService _service;
