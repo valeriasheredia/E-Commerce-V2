@@ -97,6 +97,8 @@ namespace E_Commerce_V2.Data.Carrito
 
             _context.ShoppingCartItems.RemoveRange(items);
             await _context.SaveChangesAsync();
+
+            ShoppingCartItems = new List<ShoppingCartItem>();
         }
     }
 }
