@@ -7,5 +7,6 @@ namespace E_Commerce_V2.Models
     {
         [Display(Name ="Nombre")]
         public string Nombre { get; set; }
+
     }
 }
