@@ -170,8 +170,7 @@ namespace E_Commerce_V2.Data
                     await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
 
                 //Users
-                var userManager = serviceScope.ServiceProvider
-                    .GetRequiredService<UserManager<ApplicationUser>>();
+                var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                 string adminUserEmail = "admin@etickets.com";
 
                 var adminUser = await userManager.FindByEmailAsync(adminUserEmail);

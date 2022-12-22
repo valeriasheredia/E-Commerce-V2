@@ -9,8 +9,9 @@ namespace E_Commerce_V2.Data.ViewModels
         public string EmailAddress { get; set; }
 
 
-        [Display(Name = "Contraseña")]
-        [Required(ErrorMessage ="La Contraseña es requerida")]
+        //[Display(Name = "Contraseña")]
+        //[Required(ErrorMessage ="La Contraseña es requerida")]
+        [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }

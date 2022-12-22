@@ -35,7 +35,7 @@ namespace E_Commerce_V2.Models
         [Display(Name = "Precio")]
         public decimal Precio { get; set; }
 
-        public decimal Descuento { get; set; }
+        public decimal Descuento { get; set; } = 0;
 
         [Required(ErrorMessage = "El stock del producto es requerido")]
         [Display(Name = "Stock")]
